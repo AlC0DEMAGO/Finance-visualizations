@@ -1,21 +1,28 @@
 import Card, { CardBody } from "./components/Card";
+import Button from "./components/Button";
 import List from "./components/List";
+import { useState } from "react";
 function App() {
-  const list = ["Pikachu", "Snorlax", "Bulbasur"];
+  const [isLoading, setIsLoading] = useState(false);
+  const handleClick = () => setIsLoading(!isLoading);
 
+  const list = ["Pikachu", "Snorlax", "Bulbasur"];
   const handleSelect = (elemento: string) => {
     console.log("imprimiento:", elemento);
   };
-
-  const handleSelect2 = (elemento: string) => {
-    console.log("este es: ", elemento);
-  };
+  const contenido = list.length ? (
+    <List data={list} onSelect={handleSelect}></List>
+  ) : (
+    "sin elementos para mostrar"
+  );
 
   return (
     <Card>
       <CardBody title="Titulo" text="este es el texto" />
-      <List data={list} onSelect={handleSelect}></List>
-      <List data={list} onSelect={handleSelect2}></List>
+      {contenido}
+      <Button isLoading={isLoading} onClick={handleClick}>
+        hola mundo
+      </Button>
     </Card>
   );
 }
